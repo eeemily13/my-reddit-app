@@ -1,9 +1,8 @@
 import React from 'react';
 import LikeCounter from './social/like/likeCounter';
 import ShareLink from './social/share/shareLink';
-
-
 import Comments from './social/comment/Comments';
+
 
 
 
@@ -21,13 +20,11 @@ return (
       <img src={data} alt="puppies" className='dataImg'/>
     </article>
     <article className='social'>
-      <LikeCounter />
-      <Comments currentUserId='1' className="comments"/>  
-      <ShareLink className='shareLink'/>   
-     
-      
-
-      
+      <LikeCounter /> 
+      <ShareLink className='shareLink'/> 
+    </article>
+    <article className='commentSection'>
+      <Comments currentUserId='1' className="comments"/>   
     </article>
   </article>
     

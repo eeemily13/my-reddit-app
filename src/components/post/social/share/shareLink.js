@@ -9,8 +9,7 @@ import {    FacebookShareButton,
             TwitterIcon,
             WhatsappIcon,
             RedditIcon,
-            FacebookShareCount,
-            RedditShareCount } from "react-share";
+           } from "react-share";
 
 export default function ShareLink() {
     const shareUrl = 'reddit.com'

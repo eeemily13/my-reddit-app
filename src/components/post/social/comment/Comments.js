@@ -28,7 +28,7 @@ const deleteComment = (commentId) => {
     setBackendComments(updatedBackendComments)}
 )}}
 const updateComment = (text, commentId) => {
-updateCommentApi(text, commentId). then(() => {
+updateCommentApi(text, commentId).then(() => {
     const updatedBackendComments = backendComments.map((backendComment) => {
         if (backendComment.id === commentId) {
             return {...backendComment, body: text}

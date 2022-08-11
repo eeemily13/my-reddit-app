@@ -9,8 +9,21 @@ body{
     background-color: rgb(91, 124, 124);
     color:#222;
 }
+
+/*HEADER SECTION*/
 .header {
-    padding: 2rem;
+    margin: 0;
+    padding: 13px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 2fr;
+    gap: 1em;
+    position: sticky;
+    justify-content: space-around;
+    top: 0;
+    background-color: whitesmoke;
+    
 }
 
 .header h1 {
@@ -19,6 +32,22 @@ body{
     font-size: 30px;
 }
 
+.reddit-logo {
+    width:40px;
+    height: 40px;
+    display:flex;
+}
+
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: relative;
+}
+.header-search {
+    width: 250px;
+}
 .user {
     font-size: 16px;
     display: flex;
@@ -45,20 +74,6 @@ body{
     padding: 1rem;
 }
 
-@media screen and (min-width: 768px){
-    .post{
-        grid-template-columns: repeat(1, 1fr);
-    }
-}
-@media screen and (min-width: 768px) {
-    .user {
-        grid-template-columns: repeat(5, 1fr);
-    }
-    .count {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
 .postData {
     display: grid;
     width: 100%;
@@ -67,17 +82,9 @@ body{
     gap: 1rem;
 }
 
-.postData h2 {
-    text-transform: capitalize;
 
-}
 
-.dataImg {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    
-}
+
 
 .post {
     background-color: rgb(69, 94, 94);
@@ -88,44 +95,78 @@ body{
 .post h3 {
     margin: 1rem;
 }
+.dataImg {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: fill;
+    
+}
+.postData h2 {
+    text-transform: capitalize;
+
+}
+/*SOCIAL SECTION */
 
 .social {
     margin: 0.5rem;
-    display: grid;
-    grid-template-columns: 0.4fr 3fr 1fr;
-
-}
-
-.social button {
-    border: 1px solid;
-    border-radius: 10px;
-    padding: 0.25rem 0.5rem;
-    background-color: rgb(91, 124, 124);
-    color: aliceblue;
-    width: 60px;
-    height: 30px;
-    
-}
-
-.count {
-    color: rgb(29, 43, 43);
-    text-align: center;
-    width: 25px;
-    height: 25px;
-    padding: 0.25rem 0.25rem;
-    grid-row: 2;
-}
-
-
-.likeContainer {
     display: flex;
-    flex-flow: column;
-    justify-content: left;
-    margin-right: 1rem;
-    margin-left: 2rem;
-    margin-top: 1rem;
-    gap: 0.5rem;
+    flex-flow: row;
+    gap: 50rem;
+    padding-left: 2rem;
+    padding-top: 0.5rem;
 }
+
+
+/*LIKE SECTION*/
+.voting {
+    border: 1px solid rgba(0, 0, 0 ,0.3);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    height: 6rem;
+    width: 2.5rem;
+    
+
+}
+
+.votingButton {
+    /*reset*/
+    background: none;
+    border: none;
+    cursor: pointer;
+    /*size*/
+    height: 1rem;
+    /*psoition of arrow*/
+    position: relative;
+    left: 25%;
+}
+.arrow {
+    border-style: solid;
+    /*size*/
+    height: 0;
+    width: 0;
+}
+.upArrow {
+    border-color: transparent transparent rgba(0, 0, 0, 0.3);
+    border-width: 0 0.5rem 0.5rem;
+}
+.downArrow {
+    border-color: rgba(0, 0, 0, 0.3) transparent transparent;
+    border-width: 0.5rem 0.5rem 0rem;
+}
+.count {
+    flex: 1;
+    /*center number*/
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
 
 /*Comments section*/
 .comments{
@@ -229,8 +270,24 @@ body{
 /*share button*/
 .shareButtons {
     display: flex;
-    flex-flow: column; 
+    flex-flow: row; 
     gap: 1rem;
     align-items: center;
 }
 
+
+@media screen and (min-width: 768px) {
+    .post {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .user {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .count {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
