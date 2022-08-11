@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './components/header/Header'
-import { SearchBar } from './components/header/Search/SearchBar';
 import Post from './components/post/post';
 import posts from './components/post/posts';
 
