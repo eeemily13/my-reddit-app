@@ -1,37 +1,38 @@
-import React from 'react';
-import Header from './components/header/Header'
-import Post from './components/post/post';
-import posts from './components/post/posts';
-
-
-//css import
+import React from "react";
 import './index.css';
+import { Routes } from "react-router";
+import {  Route } from 'react-router-dom';
+import { Subreddits } from './components/subreddits/SubredditList';
+import { Filter } from './components/filter/Filter';
+import { HomePage } from './components/page';
+import { SubredditPage } from './components/SubredditPage';
+import { ErrorPage } from './components/errorPage';
+import { SearchPage } from './components/SearchPage';
+import { Header } from './components/header/Header';
 
 
+function App() {
 
-
-
-function App(){
-
-  return  ( 
-    <section className='app'>
+  
+  return (
+    <>
       <Header />
-      <section className='body'>
-        <section className='postlist'>
-          {posts.map((post) =>{
-            return (
-              <Post key={posts.id} {...post}></Post>
-            )}
-          )}
+      <div className="mainContent">
+        <section className="subreddits-side">
+          <Subreddits />
         </section>
-      </section>
-    
-    </section>
-)}  
+        <section className="filter and posts">
+          <Filter />
+            <Routes>
+              <Route exact path="/" element={<HomePage />} />
+              <Route exact path="/r/:subreddit" element={<SubredditPage />} />
+              <Route exact path="/search/:seatchTerm" element={<SearchPage />} />
+              <Route exact path="/:error" element={<ErrorPage />} />
+            </Routes>
+        </section>
+      </div>
+    </>
+  );
+}
 
 export default App;
-
-
-
-
-

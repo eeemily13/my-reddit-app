@@ -1,36 +1,51 @@
-const posts = [
-{
-  id: 1,
-  userId:'puppylove4life',
-  userImg: 'user-icon.png',
-  title: 'little yellow lab',
-  data: 'labpuppy1.jpg'
-},
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { 
+        selectAllPosts,
+        selectStatus,
+        fetchPosts,
+        fetchPostsBasedOnSearch,
+} from '../../features/postSlice';
+import { selectFilter, changeFilter } from '../../features/filterSlice';
+import { selectSearchTerm, changeSearchTerm } from '../../features/searchTermSlice';
+import { IndiPost } from "./indPost/indiPost";
+import { Spinner } from "../spinner/spinner";
 
-{
-  id: 2,
-  userId:'labs4life',
-  userImg: 'user-icon.png',
-  title: 'cute baby german shephard',
-  data: 'germanpuppy1.jpg' 
-},
+export const Posts = () => {
 
-{
-  id: 3,
-  userId: 'dogsDOGSdogs',
-  userImg: 'user-icon.png',
-  title: 'fluffy wuffy puppy',
-  data: 'puppy1.jpg'
-},
+    const dispatch = useDispatch();
+    const posts = useSelector(selectAllPosts);
+    const status = useSelector(selectStatus);
+    const filter = useSelector(selectFilter);
+    const url = useParams();
 
-{ 
-  id: 4,
-  userId: 'puppo154245',
-  userImg: 'user-icon.png',
-  title: 'awwwwwwwww',
-  data: 'puppy2.jpg'
-},
+    const { subreddit } = useParams();
+    const searchTerm = useSelector(selectSearchTerm);
 
-]
+    useEffect(() => {
+        const payload = {filter, subreddit: subreddit ? subreddit : 'popular'};
+        if (url.searchTerm) {
+            dispatch(fetchPostsBasedOnSearch(searchTerm));
+            dispatch(changeFilter({ nameOfFilter: 'hot'}));
+            return;
+        } else {
+            dispatch(fetchPosts(payload));
+            dispatch(changeSearchTerm({ searchTerm: ''}));
+            return;
+        }
+    }, [filter, url, dispatch, searchTerm, subreddit]);
 
-export default posts;
+    if (status === 'loading') {
+        return <Spinner />;
+    }
+    if(status === 'succeeded') {
+        return (
+            <>
+                {posts.map((post, id) => (
+                    <IndiPost key={id} {...post} />
+                ))}
+            </>
+        );
+    }
+};

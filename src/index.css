@@ -6,12 +6,23 @@
 
 body{
     font-family: Georgia, 'Times New Roman', Times, serif ;
-    background-color: rgb(91, 124, 124);
+    background-color: rgb(182, 219, 219);
     color:#222;
 }
 
+.reddit {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    'trending trending'
+    'category category'
+    'subreddits post';
+   
+}
+
 /*HEADER SECTION*/
-.header {
+.nav-content {
     margin: 0;
     padding: 13px;
     width: 100%;
@@ -32,10 +43,9 @@ body{
     font-size: 30px;
 }
 
-.reddit-logo {
+.logo {
     width:40px;
     height: 40px;
-    display:flex;
 }
 
 .visually-hidden {
@@ -62,9 +72,57 @@ body{
     width: 20px;
     border-radius: 100%;
 }
+/*Trending section*/
+.trending {
+    border: 1px solid black;
+    margin: 2rem;
+    padding: 0.4rem;
+    grid-column: 1, 2;
+    grid-area: trending;
+}
+.trending-posts {
+    display: flex;
+    justify-content: space-around;
+}
 
+/*categories section*/
 
-.postlist {
+.category-btn {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem;
+    grid-area: category;
+
+}
+
+/*Post - Section*/
+
+.postBody {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1px solid black;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    grid-area: post;
+    
+
+}
+.dataOfPost {
+    grid-column: 2;
+}
+
+/*subreddit panel section*/
+.subreddits {
+    margin-left: 0.25rem;
+    margin-right:0.25rem;
+    border: 1px solid black;
+    width: 10rem;
+    height: 100rem;
+    grid-template-columns: 1fr;
+    grid-area: subreddits;
+}
+.postBodyrevised {
     width: 98.5%;
     display: flex;
     flex-flow: column;
@@ -115,7 +173,7 @@ body{
     margin: 0.5rem;
     display: flex;
     flex-flow: row;
-    gap: 50rem;
+    gap: 5rem;
     padding-left: 2rem;
     padding-top: 0.5rem;
 }
@@ -127,10 +185,8 @@ body{
     border-radius: 0.25rem;
     display: flex;
     flex-direction: column;
-    height: 6rem;
-    width: 2.5rem;
-    
-
+    height: 6em;
+    width: 2.5em;
 }
 
 .votingButton {
