@@ -9,6 +9,7 @@ import { SubredditPage } from './components/SubredditPage';
 import { ErrorPage } from './components/errorPage';
 import { SearchPage } from './components/SearchPage';
 import { Header } from './components/header/Header';
+import { Trending } from './components/trending/Trending';
 
 
 function App() {
@@ -21,7 +22,10 @@ function App() {
         <section className="subreddits-side">
           <Subreddits />
         </section>
-        <section className="filter and posts">
+        <section className="trending-section">
+          <Trending />
+        </section>
+        <section className="filter-and-posts">
           <Filter />
             <Routes>
               <Route exact path="/" element={<HomePage />} />

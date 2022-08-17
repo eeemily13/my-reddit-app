@@ -14,7 +14,7 @@ import night from '../../night.svg';
 export const Header = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const dispatch = useDispatch();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const theme = useSelector(selectTheme);
 
     //night to day switch
@@ -29,7 +29,7 @@ export const Header = () => {
 
     const handleSubmit = (e) => {
         dispatch(changeSearchTerm({searchTerm}));
-        history.push(`/search/${searchTerm}`);
+        navigate.push(`/search/${searchTerm}`);
         setSearchTerm("");
     };
 
@@ -37,7 +37,7 @@ export const Header = () => {
         <nav className={!theme ? "night-nav" : null}>
             <section className="nav-content">
                 <div className="logo">
-                    <a href="https://read-reddit.netlify.app">
+                    <a href=" add a web address">
                         <img src={!theme ? logo : logo} alt="logo" />
                     </a>
                 </div>
@@ -45,31 +45,30 @@ export const Header = () => {
                 className={!theme ? "night-form search-bar" : "search-bar"}
                 onSubmit={handleSubmit}
                 >
+                <input
+                    type="text"
+                    className='searchBar'
+                    id="searchTerm"
+                    placeholder="Search reddit"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
                 <label htmlFor="searchTerm">
                     <button
-                    className={!theme ? "search-icon night-search-icon" : "search-icon"}
+                    className='search-icon'
                     type="button"
                     onClick={handleSubmit}
                     >
                     <img src={!theme ? searchNight : search} alt="" />
                     </button>
                 </label>
-                <input
-                    type="text"
-                    className={!theme ? "night-input" : "day-input"}
-                    id="searchTerm"
-                    placeholder="Search for Topics"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
                 </form>
                 <div className="nav-icons">
-                <button onClick={() => dispatch(toggleTheme())} className="day">
-                    <img src={!theme ? day : night} alt="day" />
-                </button>
+                    <h2>Welcome to Minimal reddit</h2>
+               
                 <div className="github">
                     <a
-                    href="https://github.com/serclino"
+                    href="https://github.com/eeemily13/my-reddit-app"
                     target="_blank"
                     rel="noreferrer"
                     >

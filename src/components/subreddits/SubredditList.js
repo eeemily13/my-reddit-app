@@ -28,7 +28,7 @@ export const Subreddits = () => {
 
   return (
     <>
-      <Link to="/" className={!theme ? "home home-night" : "home"}>
+      <Link to="/" className='subreddits'>
         <div className="stripe"></div>
         <img src={home} alt="home" />
         <h6>Home</h6>

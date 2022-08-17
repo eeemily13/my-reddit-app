@@ -11,7 +11,7 @@ export const fetchSubreddits = createAsyncThunk(
     'subbreddits/fetchSubreddits',
     async () => {
         const response = await fetch('https:///www.reddit.com/subreddits.json');
-        const jsonData = response.json();
+        const jsonData = await response.json();
         const newSubreddits = jsonData.data.children.map((subreddit) => {
             const {
                 banner_img,
@@ -33,6 +33,7 @@ export const fetchSubreddits = createAsyncThunk(
             };
         });
         newSubreddits.shift();
+        
         return newSubreddits
     }
 );
@@ -69,7 +70,7 @@ export const selectTargetSubredditIcon = (state, targetSubreddit) => {
         } else {
             return subredditIcon; 
         }
-        } else {
+    } else {
             return subredditIcon;
         }
     };
