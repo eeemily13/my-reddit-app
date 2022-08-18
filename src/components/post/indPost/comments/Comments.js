@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { IndiComment } from "./IndiComments";
-import { selectTheme } from '../../../../features/themeSlice'
+
 
 export const Comments = ({ comments }) => {
     const [allComments] = useState(comments);

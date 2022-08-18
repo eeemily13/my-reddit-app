@@ -11,14 +11,14 @@ export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",
   async (payload) => {
     const { filter, subreddit } = payload;
-    console.log(`https://www.reddit.com/r/${subreddit}/${filter}.json`);
+    //console.log(`https://www.reddit.com/r/${subreddit}/${filter}.json`);
     const response = await fetch(
       `https://www.reddit.com/r/${subreddit}/${filter}.json`
     );
     const jsonData = await response.json();
    //console.log(jsonData);
     const newPosts = jsonData.data.children.map((post) => {
-      const { subreddit_name_prefixed, author, num_comments, title, id } =
+      const { subreddit_name_prefixed, author, num_comments, title, score, id } =
         post.data;
       // handling fetching text
       const text = post.data.selftext ? post.data.selftext : null;
@@ -36,6 +36,7 @@ export const fetchPosts = createAsyncThunk(
         subreddit: subreddit_name_prefixed,
         time: time,
         title: title,
+        score: score,
         text: text,
         image: image,
         numOfComments: num_comments,
@@ -55,9 +56,9 @@ export const fetchPostsBasedOnSearch = createAsyncThunk(
       `https://www.reddit.com/search.json?q=${searchTerm}`
     );
     const jsonData = await response.json();
-    // console.log(jsonData);
+    console.log(jsonData);
     const newPosts = jsonData.data.children.map((post) => {
-      const { subreddit_name_prefixed, author, num_comments, title, id } =
+      const { subreddit_name_prefixed, author, num_comments, title, score, id } =
         post.data;
       // handling fetching text
       const text = post.data.selftext ? post.data.selftext : null;
@@ -78,6 +79,7 @@ export const fetchPostsBasedOnSearch = createAsyncThunk(
         text: text,
         image: image,
         numOfComments: num_comments,
+        score: score,
         id: id,
       };
     });

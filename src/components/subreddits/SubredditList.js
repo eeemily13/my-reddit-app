@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-        fetchSubreddits,
-        selectAllSubreddits,
-        selectStatus,
-} from '../../features/subredditSlice';
+  fetchSubreddits,
+  selectAllSubreddits,
+  selectStatus,
+} from "../../features/subredditSlice";
 import { Link, NavLink } from "react-router-dom";
-import { Spinner } from "../spinner/spinner";
-import { selectTheme } from "../../features/themeSlice";
 
-import arrow from '../../arrow.svg';
-import arrowNight from '../../arrowNight.svg';
-import home from '../../home.svg';
-import showArrow from '../../showArrow.svg';
-import showArrowNight from '../../showArrowNight.svg';
+// images
+import home from "../../home.jpg";
+import showArrow from "../../showArrow.svg";
+import arrow from "../../arrow.svg";
+
 
 export const Subreddits = () => {
-        const [showSubreddits, setShowSubreddits] = useState(true);
-        const dispatch = useDispatch();
-        const subreddits = useSelector(selectAllSubreddits);
-        const status = useSelector(selectStatus);
-        const theme = useSelector(selectTheme);
+  const [showSubreddits, setShowSubreddits] = useState(true);
+  const dispatch = useDispatch();
+  const subreddits = useSelector(selectAllSubreddits);
+  const status = useSelector(selectStatus);
 
   useEffect(() => {
     dispatch(fetchSubreddits());
@@ -28,49 +25,37 @@ export const Subreddits = () => {
 
   return (
     <>
-      <Link to="/" className='subreddits'>
-        <div className="stripe"></div>
+      <Link to="/" className= "subreddit-home">
         <img src={home} alt="home" />
-        <h6>Home</h6>
+        <h6 className="h6-title">Home</h6>
       </Link>
       <button
         className="toggle-button"
         onClick={() => setShowSubreddits(!showSubreddits)}
       >
         <img
-          src={!theme ? showArrowNight : showArrow}
+          src={showArrow}
           alt="toggle arrow"
-          className={`${
-            showSubreddits && status === "succeeded" ? "arrow-up" : "arrow-down"
-          }`}
+          className={`${showSubreddits && status === "succeeded" ? "arrow-up" : "arrow-down"}`}
         />
-        <h6 className={!theme ? "night-h6" : null}>Subreddits</h6>
+        <h6 className='subreddit-title'>Subreddits</h6>
       </button>
-
-      {status === "loading" ? <Spinner /> : null}
-
+    <div>
       {showSubreddits
         ? subreddits.map((subreddit, id) => {
             return (
               <div className="links" key={id}>
-                <img src={!theme ? arrowNight : arrow} alt="arrow" />
-                <NavLink
-                  to={`/${subreddit.subreddit}`}
-                  className={
-                    !theme
-                      ? "night-link-to-subreddit link-to-subreddit"
-                      : "link-to-subreddit"
-                  }
-                  activeClassName={
-                    !theme ? "night-clicked-link" : "clicked-link"
-                  }
-                >
+                <img src={arrow} alt="arrow" />
+                <NavLink to={`/${subreddit.subreddit}`}
+                  className='link-to-subreddit'
+                  activeClassName="clicked-link">
                   {subreddit.subreddit}
-                </NavLink>
+              </NavLink>
               </div>
             );
           })
         : null}
+      </div>
     </>
   );
 };

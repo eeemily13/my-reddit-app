@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectTargetSubredditIcon } from "../../../features/subredditSlice";
 import { Comments } from "./comments/Comments";
 import { Spinner } from "../../spinner/spinner";
+import  { LikeCounter } from '../LikeCounter';
 
 
 
@@ -13,6 +14,7 @@ export const IndiPost = ({
   title,
   text,
   image,
+  score,
   numOfComments,
   id,
 }) => {
@@ -42,53 +44,57 @@ export const IndiPost = ({
   };
 
   return (
-    <article className='indi-post'>
-      <div className='head'>
-        <img src={icon} alt="reddit-avatar" className="reddit-avatar" />
-        
-        <p className='indi-subreddit'>{subreddit}</p>
-        <h5 className='indi-author'>Posted by u/{author}</h5>
-        <p className='indi-time'>{time}</p>
-      </div>
-      <h4 className='indi-title'>{title}</h4>
-      {text ? (
-        isTextLong ? (
-          <p className='indi-text-length'>
-            {text.substring(0, 250)}
+    <>
+        <article className='indi-post'>
+        <div className='head'>
+            <img src={icon} alt="reddit-avatar" className="reddit-avatar" />
+            
+            <p className='indi-subreddit'>{subreddit}</p>
+            <h5 className='indi-author'>Posted by u/{author}</h5>
+            <p className='indi-time'>{time}</p>
+        </div>
+        <h4 className='indi-title'>{title}</h4>
+        <p>{score}</p>
+        <LikeCounter />
+        {text ? (
+            isTextLong ? (
+            <p className='indi-text-length'>
+                {text.substring(0, 250)}
+                <button
+                className="show-more"
+                type="button"
+                onClick={() => setIsTextLong(!isTextLong)}
+                >
+                ...continue reading
+                </button>
+            </p>
+            ) : (
+            <p className='indi-text'>{text}</p>
+            )
+        ) : null}
+        {image ? (
+            <div className="image-container">
+            <img src={image} alt={title} />
+            </div>
+        ) : null}
+
+        {loadingComments === "succeeded" ? (
+            <Comments comments={comments} />
+        ) : null}
+
+        {!comments ? (
+            <div className="btn-comments">
             <button
-              className="show-more"
-              type="button"
-              onClick={() => setIsTextLong(!isTextLong)}
+                onClick={() => handleClick(subreddit, id)}
+                disabled={!numOfComments}
             >
-              ...continue reading
+                Comments <div className='indi-comments'></div>
+                <span>{numOfComments}</span>
             </button>
-          </p>
-        ) : (
-          <p className='indi-text'>{text}</p>
-        )
-      ) : null}
-      {image ? (
-        <div className="image-container">
-          <img src={image} alt={title} />
-        </div>
-      ) : null}
-
-      {loadingComments === "succeeded" ? (
-        <Comments comments={comments} />
-      ) : null}
-
-      {!comments ? (
-        <div className="btn-comments">
-          <button
-            onClick={() => handleClick(subreddit, id)}
-            disabled={!numOfComments}
-          >
-            Comments <div className='indi-comments'></div>
-            <span>{numOfComments}</span>
-          </button>
-          {loadingComments === "loading" ? <Spinner /> : null}
-        </div>
-      ) : null}
-    </article>
+            {loadingComments === "loading" ? <Spinner /> : null}
+            </div>
+        ) : null}
+        </article>
+    </>
   );
 };
